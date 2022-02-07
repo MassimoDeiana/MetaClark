@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 353559c8cedc3ac4388eadfb386fac25, type: 3}
   m_Name: DefaultForkliftInputSettings
   m_EditorClassIdentifier: 
-  toggleEngine: 116
-  forksUp: 273
-  forksDown: 274
-  forksRight: 275
-  forksLeft: 276
-  mastTiltBackwards: 110
-  mastTiltForwards: 98
+  toggleEngine: 57
+  forksUp: 49
+  forksDown: 50
+  forksRight: 51
+  forksLeft: 52
+  mastTiltBackwards: 53
+  mastTiltForwards: 54
   customEventTriggers: 

@@ -5,7 +5,7 @@ namespace WSMGameStudio.Vehicles
     [CreateAssetMenu(fileName = "NewVehicleInputSettings", menuName = "WSM Game Studio/Vehicle Controller/Vehicle Input Settings", order = 1)]
     public class WSMVehicleInputSettings : ScriptableObject
     {
-        public KeyCode toggleEngine = KeyCode.T;
+        public KeyCode toggleEngine = KeyCode.Alpha9;
         public KeyCode acceleration = KeyCode.W;
         public KeyCode reverse = KeyCode.S;
         public KeyCode turnRight = KeyCode.D;

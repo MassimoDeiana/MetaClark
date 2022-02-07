@@ -15,12 +15,15 @@ namespace WSMGameStudio.Vehicles
         private float _acceleration = 0f;
         private float _steering = 0f;
 
+        public SerialController serialController;
+
         /// <summary>
         /// Initializing references
         /// </summary>
         void Start()
         {
             _vehicleController = GetComponent<WSMVehicleController>();
+            serialController = GameObject.Find("SerialController").GetComponent<SerialController>();
         }
 
         /// <summary>
@@ -28,8 +31,13 @@ namespace WSMGameStudio.Vehicles
         /// </summary>
         void Update()
         {
+
+
             if (enablePlayerInput)
             {
+                string message = serialController.ReadSerialMessage();
+
+
                 if (inputSettings == null) return;
 
                 #region Vehicle Controls
@@ -47,7 +55,7 @@ namespace WSMGameStudio.Vehicles
                 _vehicleController.HandBrakeInput = Input.GetKey(inputSettings.handbrake) ? 1f : 0f;
                 _vehicleController.ClutchInput = Input.GetKey(inputSettings.clutch) ? 1f : 0f;
 
-                if (Input.GetKeyDown(inputSettings.toggleEngine))
+                if (message == "8")
                     _vehicleController.IsEngineOn = !_vehicleController.IsEngineOn;
 
                 if (Input.GetKeyDown(inputSettings.horn))
