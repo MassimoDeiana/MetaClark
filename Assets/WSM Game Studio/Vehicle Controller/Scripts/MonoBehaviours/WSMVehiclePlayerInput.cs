@@ -35,27 +35,27 @@ namespace WSMGameStudio.Vehicles
 
             if (enablePlayerInput)
             {
-                string message = serialController.ReadSerialMessage();
+                string arduinoInput = serialController.ReadSerialMessage();
 
 
                 if (inputSettings == null) return;
 
                 #region Vehicle Controls
 
-                _acceleration = Input.GetKey(inputSettings.acceleration) ? 1f : 0;
-                _acceleration = Input.GetKey(inputSettings.reverse) ? _acceleration - 1 : _acceleration;
+                _acceleration = (arduinoInput == "Z") ? 1f : 0;
+                _acceleration = (arduinoInput == "S") ? _acceleration - 1 : _acceleration;
                 _vehicleController.AccelerationInput = _acceleration;
 
                 _steering = 0f;
-                _steering = Input.GetKey(inputSettings.turnRight) ? _steering + 1 : _steering;
-                _steering = Input.GetKey(inputSettings.turnLeft) ? _steering - 1 : _steering;
+                _steering = (arduinoInput == "Q") ? _steering + 1 : _steering;
+                _steering = (arduinoInput == "D") ? _steering - 1 : _steering;
                 _vehicleController.SteeringInput = _steering;
 
                 _vehicleController.BrakesInput = Input.GetKey(inputSettings.brakes) ? 1f : 0f;
                 _vehicleController.HandBrakeInput = Input.GetKey(inputSettings.handbrake) ? 1f : 0f;
                 _vehicleController.ClutchInput = Input.GetKey(inputSettings.clutch) ? 1f : 0f;
 
-                if (message == "8")
+                if (arduinoInput == "T")
                     _vehicleController.IsEngineOn = !_vehicleController.IsEngineOn;
 
                 if (Input.GetKeyDown(inputSettings.horn))

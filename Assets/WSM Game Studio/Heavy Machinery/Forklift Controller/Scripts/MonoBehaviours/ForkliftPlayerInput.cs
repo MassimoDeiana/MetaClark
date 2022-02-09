@@ -36,16 +36,16 @@ namespace WSMGameStudio.HeavyMachinery
             {
 
                 //Debug.Log("La");
-                string message = serialController.ReadSerialMessage();
+                string arduinoInput = serialController.ReadSerialMessage();
 
-                if (message == null)
+                if (arduinoInput == null)
                 {
                     //Debug.Log("Message null");
                     return;
                 }
                 else
                 {
-                    Debug.Log("ICI");
+                    //Debug.Log("Message null");
                 }
 
                 if (inputSettings == null) return;
@@ -55,36 +55,57 @@ namespace WSMGameStudio.HeavyMachinery
                 if (Input.GetKeyDown(inputSettings.toggleEngine))
                     _forkliftController.IsEngineOn = !_forkliftController.IsEngineOn;
 
-                _mastTilt = Input.GetKey(inputSettings.mastTiltForwards) ? 1 : (Input.GetKey(inputSettings.mastTiltBackwards) ? -1 : 0);
+                /**
+                *   La version bien
+                */
+                _mastTilt = ((arduinoInput == "1") ? 1 : (arduinoInput == "0") ? -1 : 0);
+                _forksVertical = ((arduinoInput == "3") ? 1 : (arduinoInput == "2") ? -1 : 0);
+                _forksHorizontal = ((arduinoInput == "5") ? 1 : (arduinoInput == "4") ? -1 : 0);
 
-                if(message == "1")
-                {
-                    _forksVertical = 1;
-                }
-                else if(message == "0")
-                {
-                    _forksVertical = -1;
-                }
-                else
-                {
-                    _forksVertical = 0;
-                }
 
-                if(message == "2")
-                {
-                    _forksHorizontal = -1;
-                }
-                else if(message == "3")
-                {
-                    _forksHorizontal = 1;
-                }
-                else
-                {
-                    _forksHorizontal = 0;
-                }
+                /**
+                *   Version pas propre avec les if/else
+                */
+                // if(arduinoInput == "1")
+                // {
+                //     _forksVertical = 1;
+                // }
+                // else if(arduinoInput == "0")
+                // {
+                //     _forksVertical = -1;
+                // }
+                // else
+                // {
+                //     _forksVertical = 0;
+                // }
 
-                //_forksVertical = Input.GetKey(inputSettings.forksUp) ? 1 : (Input.GetKey(inputSettings.forksDown) ? -1 : 0);
-                //_forksHorizontal = Input.GetKey(inputSettings.forksRight) ? 1 : (Input.GetKey(inputSettings.forksLeft) ? -1 : 0);
+                // if(arduinoInput == "2")
+                // {
+                //     _forksHorizontal = -1;
+                // }
+                // else if(arduinoInput == "3")
+                // {
+                //     _forksHorizontal = 1;
+                // }
+                // else
+                // {
+                //     _forksHorizontal = 0;
+                // }
+                
+                // if(arduinoInput == "4")
+                // {
+                //     _mastTilt = -1;
+                // }
+                // else if(arduinoInput == "5")
+                // {
+                //     _mastTilt = 1;
+                // }
+                // else
+                // {
+                //     _mastTilt = 0;
+                // }
+
+
 
                 _forkliftController.RotateMast(_mastTilt);
                 _forkliftController.MoveForksVertically(_forksVertical);
