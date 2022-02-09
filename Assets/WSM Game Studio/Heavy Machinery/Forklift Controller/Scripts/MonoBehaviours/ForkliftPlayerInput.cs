@@ -52,15 +52,15 @@ namespace WSMGameStudio.HeavyMachinery
 
                 #region Forklift Controls
 
-                if (Input.GetKeyDown(inputSettings.toggleEngine))
+                if (Input.GetKeyDown(inputSettings.toggleEngine) || (arduinoInput == "T"))
                     _forkliftController.IsEngineOn = !_forkliftController.IsEngineOn;
 
                 /**
                 *   La version bien
                 */
-                _mastTilt = ((arduinoInput == "1") ? 1 : (arduinoInput == "0") ? -1 : 0);
-                _forksVertical = ((arduinoInput == "3") ? 1 : (arduinoInput == "2") ? -1 : 0);
-                _forksHorizontal = ((arduinoInput == "5") ? 1 : (arduinoInput == "4") ? -1 : 0);
+                _mastTilt = (Input.GetKey(inputSettings.mastTiltForwards) || arduinoInput == "1") ? 1 : ((Input.GetKey(inputSettings.mastTiltBackwards) || arduinoInput == "0") ? -1 : 0);
+                _forksVertical = (Input.GetKey(inputSettings.forksUp) || arduinoInput == "3") ? 1 : ((Input.GetKey(inputSettings.forksDown) || arduinoInput == "2") ? -1 : 0);
+                _forksHorizontal = (Input.GetKey(inputSettings.forksRight) || arduinoInput == "5") ? 1 : ((Input.GetKey(inputSettings.forksLeft) || arduinoInput == "4") ? -1 : 0);
 
 
                 /**
