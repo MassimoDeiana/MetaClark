@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using System.Threading.Tasks;
 
 namespace WSMGameStudio.Vehicles
 {
@@ -17,13 +18,37 @@ namespace WSMGameStudio.Vehicles
 
         public SerialController serialController;
 
+        private SignalRConnector connector;
+
+
         /// <summary>
         /// Initializing references
         /// </summary>
-        void Start()
+        public async Task Start()
         {
+            connector = new SignalRConnector();
+            connector.OnMessageReceived += UpdateReceivedMessages;
+
+            await connector.InitAsync();
             _vehicleController = GetComponent<WSMVehicleController>();
             serialController = GameObject.Find("SerialController").GetComponent<SerialController>();
+        }
+
+        private void UpdateReceivedMessages(Message newMessage)
+        {
+            Debug.Log("Received : " + newMessage.Text);
+
+            if(newMessage.Text.Equals("1"))
+            {
+                Debug.Log("coucou le message est 1");
+                _acceleration = 1f;
+            }
+            else
+            {
+                _acceleration = 0;
+            }
+            _vehicleController.AccelerationInput = _acceleration;
+                
         }
 
         /// <summary>
